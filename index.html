@@ -282,6 +282,9 @@
                 } else {
                     userComments[index].like = true;
                     userComments[index].numberOfLike++;
+                 //Отмена всплытия
+                 event.stopPropagation();
+
                     renderComments();
 
                 }

@@ -300,23 +300,8 @@
     })
 
 
-    function putLike({ userComments, isLoading, commentInputElement, likeButtonElements, token }) {
-    // const likeButtonElements = document.querySelectorAll('.like-button');
-    for (const likeButtonElement of likeButtonElements) {
-        likeButtonElement.addEventListener('click', (event) => {
-            console.log('like');
-            isLoading = 'likeСhange';
-            const likeID = likeButtonElement.dataset.index;
-
-            getLikes({ renderComments, isLoading, likeID, token });
-            // renderComments({ isLoading, userComments, commentInputElement });
-             //Отмена всплытия
-            event.stopPropagation();
-        })
-    }
-}
 //Добавление санитайзера
-const sanitizeHTML = (htmlString) => {
+/*const sanitizeHTML = (htmlString) => {
     return htmlString
         .replaceAll('>', '&gt')
         .replaceAll('<', '&lt')
@@ -330,6 +315,20 @@ users.push ({
     name: sanitizeHTML (inputNameElement.value),
     text: sanitizeHTML (commentsElement.value),
 })
+*/
+
+// Функция ответа на комментарий
+const replyToComment = () => {
+const commensCardElements = document.querySelecorAll('.comment');
+for (const commentCardElement of commentsCardElements) {
+    commentCardElement.addEventListener('click', () => {
+        const index = commentCardElement.dataset.index;
+        const quote = `QUOTE_BEGIN ${userComments[index].name}:\n ${userComments[index].comment}
+        QUOTE_END \n`;
+        commentInputElement.value = quote.replace("<div class='quote'>", '').replace('</div>', '');
+    })
+}
+}
 </script>
 
 </html>

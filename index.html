@@ -156,14 +156,17 @@
 
     //Функция добавления объекта комментария в массив
     function addComment() {
-        userComments.push({
-            name: nameInputElement.value,
-            time: getDate(),
-            comment: commentInputElement.value,
-            numberOfLike: 0,
-            like: false,
-            isEdit: false
-        });
+        if (nameInputElement.value && commentInputElement.value) {
+            userComments.push({
+                name: nameInputElement.value,
+                time: getDate(),
+                comment: commentInputElement.value,
+                numberOfLike: 0,
+                like: false,
+                isEdit: false
+            })
+        };
+
 
         renderComments()
     }
@@ -279,6 +282,9 @@
                 } else {
                     userComments[index].like = true;
                     userComments[index].numberOfLike++;
+                 //Отмена всплытия
+                 event.stopPropagation();
+
                     renderComments();
 
                 }
@@ -295,6 +301,19 @@
 
 
 
+
+// Функция ответа на комментарий
+const replyToComment = () => {
+const commensCardElements = document.querySelecorAll('.comment');
+for (const commentCardElement of commentsCardElements) {
+    commentCardElement.addEventListener('click', () => {
+        const index = commentCardElement.dataset.index;
+        const quote = `QUOTE_BEGIN ${userComments[index].name}:\n ${userComments[index].comment}
+        QUOTE_END \n`;
+        commentInputElement.value = quote.replace("<div class='quote'>", '').replace('</div>', '');
+    })
+}
+}
 </script>
 
 </html>
